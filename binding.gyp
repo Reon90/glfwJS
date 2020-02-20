@@ -10,16 +10,24 @@
         "<@(module_root_dir)",
       ],
       "conditions": [
-       [
-	  "OS=='linux'",
-	  {
-		"libraries": [
-		  "-Wl,-rpath=\'$${ORIGIN}/../../../libs/linux'",
-		  "<(glfw)/linux/libglfw.so.3"
-		]
-	  }
+      [
+        "OS=='linux'",
+        {
+        "libraries": [
+          "-Wl,-rpath=\'$${ORIGIN}/../../../libs/linux'",
+          "<(glfw)/linux/libglfw.so.3"
+        ]
+        }
        ],
-       [
+      	[
+          "OS=='win'",
+          {
+          	"libraries": [
+          		"<(glfw)/win32/glfw3dll.lib",
+          	]
+          }
+        ],
+        [
           "OS=='mac'",
           {
             "xcode_settings": {
