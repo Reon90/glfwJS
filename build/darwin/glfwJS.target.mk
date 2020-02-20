@@ -141,8 +141,8 @@ $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.c FORCE_DO_CMD
 # End of this set of suffix rules
 ### Rules for final target.
 LDFLAGS_Debug := \
-	/Users/akunets/glfw-js/libs/osx/libglfw.3.dylib \
-	-Wl,-rpath -Wl,@loader_path/../../libs \
+	/Users/akunets/glfw-js/libs/darwin/libglfw.3.dylib \
+	-Wl,-rpath -Wl,@loader_path/../../../libs/darwin \
 	-undefined dynamic_lookup \
 	-Wl,-no_pie \
 	-Wl,-search_paths_first \
@@ -152,15 +152,15 @@ LDFLAGS_Debug := \
 	-stdlib=libc++
 
 LIBTOOLFLAGS_Debug := \
-	/Users/akunets/glfw-js/libs/osx/libglfw.3.dylib \
-	-Wl,-rpath -Wl,@loader_path/../../libs \
+	/Users/akunets/glfw-js/libs/darwin/libglfw.3.dylib \
+	-Wl,-rpath -Wl,@loader_path/../../../libs/darwin \
 	-undefined dynamic_lookup \
 	-Wl,-no_pie \
 	-Wl,-search_paths_first
 
 LDFLAGS_Release := \
-	/Users/akunets/glfw-js/libs/osx/libglfw.3.dylib \
-	-Wl,-rpath -Wl,@loader_path/../../libs \
+	/Users/akunets/glfw-js/libs/darwin/libglfw.3.dylib \
+	-Wl,-rpath -Wl,@loader_path/../../../libs/darwin \
 	-undefined dynamic_lookup \
 	-Wl,-no_pie \
 	-Wl,-search_paths_first \
@@ -170,8 +170,8 @@ LDFLAGS_Release := \
 	-stdlib=libc++
 
 LIBTOOLFLAGS_Release := \
-	/Users/akunets/glfw-js/libs/osx/libglfw.3.dylib \
-	-Wl,-rpath -Wl,@loader_path/../../libs \
+	/Users/akunets/glfw-js/libs/darwin/libglfw.3.dylib \
+	-Wl,-rpath -Wl,@loader_path/../../../libs/darwin \
 	-undefined dynamic_lookup \
 	-Wl,-no_pie \
 	-Wl,-search_paths_first

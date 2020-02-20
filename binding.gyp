@@ -33,7 +33,7 @@
             "xcode_settings": {
               "OTHER_LDFLAGS": [
                 "<(glfw)/darwin/libglfw.3.dylib",
-                "-Wl,-rpath -Wl,@loader_path/../../../libs"
+                "-Wl,-rpath -Wl,@loader_path/../../../libs/darwin"
               ]
             }
           }
