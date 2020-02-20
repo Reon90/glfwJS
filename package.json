@@ -1,6 +1,6 @@
 {
-    "name": "glfwJS",
-    "version": "0.0.1",
+    "name": "glfw-n-api",
+    "version": "0.0.2",
     "description": "The N-API bindings for GLFW",
     "main": "index.js",
     "devDependencies": {
@@ -28,5 +28,5 @@
         "run": "node examples/index.js",
         "build": "node-gyp build"
     },
-    "gypfile": true
+    "gypfile": false
 }
