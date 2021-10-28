@@ -2,11 +2,11 @@ const glfw = require('../index');
 Object.assign(global, glfw);
 
 function error_callback() {
-	console.error(arguments);
+    console.error(arguments);
 }
 
 function key_callback(window, key, scancode, action, mods) {
-	if (key == 256 && action == 1) {
+    if (key == GLFW_KEY_ESCAPE && action == 1) {
         glfwSetWindowShouldClose(window, GL_TRUE);
     }
 }
@@ -21,14 +21,17 @@ if (!glfwInit()) {
 }
 
 window = glfwCreateWindow(kWidth, kHeight, "Simple example", null, null);
+
 if (!window) {
     glfwTerminate();
     process.exit(1);
 }
+
 glfwMakeContextCurrent(window);
 
 let width = new Int32Array([0]);
 let height = new Int32Array([0]);
+
 const widthP = getAddress(width.buffer);
 const heightP = getAddress(height.buffer);
 
@@ -41,7 +44,7 @@ glfwSetKeyCallback(window, key_callback);
 
 function drawLoop() {
     if (!glfwWindowShouldClose(window)) {
-        setTimeout(drawLoop, 0);
+        setImmediate(drawLoop);
     } else {
         glfwDestroyWindow(window);
         glfwTerminate();

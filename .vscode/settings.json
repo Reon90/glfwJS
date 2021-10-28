@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "glfw3.h": "c"
+    },
+    "cSpell.words": [
+        "GLFW",
+        "napi"
+    ],
+}
