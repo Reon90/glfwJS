@@ -4,9 +4,7 @@
     "description": "The N-API bindings for GLFW",
     "main": "index.js",
     "devDependencies": {
-        "node-gyp": "^3.8.0",
-        "nunjucks": "^3.2.0",
-        "xml-js": "^1.6.11"
+        "node-gyp": "11.0.0"
     },
     "repository": {
         "type": "git",

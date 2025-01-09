@@ -1,0 +1,1 @@
+cmd_Release/glfwJS.node := c++ -bundle /Users/akunets/work/glfwJS/libs/darwin/libglfw.3.dylib -Wl,-rpath -Wl,@loader_path/../../../libs/darwin -undefined dynamic_lookup -Wl,-search_paths_first -mmacosx-version-min=11.0 -arch arm64 -L./Release -stdlib=libc++ -L/opt/homebrew/opt/llvm/lib -o Release/glfwJS.node Release/obj.target/glfwJS/generated/index.o 

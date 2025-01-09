@@ -1,5 +1,6 @@
-const { platform } = process;
-const glfw = require(`../build/${platform}/Release/glfwJS.node`);
+const os = require('node:os');
+const buildType = os.arch() === 'arm64' ? `${os.platform()}-${os.arch()}` : os.platform(); 
+const glfw = require(`../build/${buildType}/Release/glfwJS.node`);
 
 function getMemory(p, l) {
     return glfw.getMemory(p, l);

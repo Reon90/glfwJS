@@ -1,5 +1,6 @@
 #include "include/c/glfw3.h"
 #include <stdlib.h>
+#include "../node/node_api.h"
 
 napi_value getMemory(napi_env env, napi_callback_info info) {
   napi_status status;
@@ -19,7 +20,7 @@ napi_value getMemory(napi_env env, napi_callback_info info) {
   status = napi_get_value_bigint_int64(env, args[1], &l, &lossless);
   assert(status == napi_ok);
 
-  status = napi_create_external_arraybuffer(env, p, l, NULL, NULL, &num);
+  status = napi_create_external_arraybuffer(env, &p, l, NULL, NULL, &num);
   assert(status == napi_ok);
   return num;
 }
@@ -39,7 +40,7 @@ napi_value getAddress(napi_env env, napi_callback_info info) {
   status = napi_get_arraybuffer_info(env, args[0], buffer, NULL);
   assert(status == napi_ok);
 
-  status = napi_create_bigint_int64(env, *buffer, &num);
+  status = napi_create_bigint_int64(env, *((int64_t*)*buffer), &num);
   assert(status == napi_ok);
   return num;
 }
@@ -50,7 +51,7 @@ typedef struct {
   } struct_glfwSetErrorCallback;
 
 napi_threadsafe_function tsfn_glfwSetErrorCallback;
-void callback_glfwSetErrorCallback(int a1,char* a2) {
+void callback_glfwSetErrorCallback(int a1,const char* a2) {
   struct_glfwSetErrorCallback *args = malloc(sizeof *args);
   args->p1 = a1;
   args->p2 = a2;
@@ -424,7 +425,7 @@ void js_callback_glfwSetCharCallback(napi_env env, napi_value js_cb, void* conte
     assert(napi_create_external(env, x1, NULL, NULL, &r1) == napi_ok);
     napi_value r2;
     unsigned int x2 = data->p2;
-    assert(napi_create_external(env, x2, NULL, NULL, &r2) == napi_ok);
+    assert(napi_create_external(env, &x2, NULL, NULL, &r2) == napi_ok);
     napi_value d[] = {
     r1,r2,
   };
@@ -454,7 +455,7 @@ void js_callback_glfwSetCharModsCallback(napi_env env, napi_value js_cb, void* c
     assert(napi_create_external(env, x1, NULL, NULL, &r1) == napi_ok);
     napi_value r2;
     unsigned int x2 = data->p2;
-    assert(napi_create_external(env, x2, NULL, NULL, &r2) == napi_ok);
+    assert(napi_create_external(env, &x2, NULL, NULL, &r2) == napi_ok);
     napi_value r3;
     int x3 = data->p3;
     assert(napi_create_int32(env, x3, &r3) == napi_ok);
@@ -605,7 +606,7 @@ typedef struct {
   } struct_glfwSetDropCallback;
 
 napi_threadsafe_function tsfn_glfwSetDropCallback;
-void callback_glfwSetDropCallback(GLFWwindow* a1,int a2,char* a3) {
+void callback_glfwSetDropCallback(GLFWwindow* a1,int a2,const char* a3[]) {
   struct_glfwSetDropCallback *args = malloc(sizeof *args);
   args->p1 = a1;
   args->p2 = a2;
@@ -749,11 +750,11 @@ napi_value _glfwGetVersion(napi_env env, napi_callback_info info) {
   void* res = NULL;
  glfwGetVersion(
     
-    ra1,
+    &ra1,
     
-    ra2,
+    &ra2,
     
-    ra3
+    &ra3
     );
 
   
@@ -844,7 +845,7 @@ napi_value _glfwGetMonitors(napi_env env, napi_callback_info info) {
     assert(status == napi_ok);
   GLFWmonitor* res = glfwGetMonitors(
     
-    ra1
+    &ra1
     );
 
   
@@ -908,9 +909,9 @@ napi_value _glfwGetMonitorPos(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3
+    &ra3
     );
 
   
@@ -973,13 +974,13 @@ napi_value _glfwGetMonitorWorkarea(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3,
+    &ra3,
     
-    ra4,
+    &ra4,
     
-    ra5
+    &ra5
     );
 
   
@@ -1030,9 +1031,9 @@ napi_value _glfwGetMonitorPhysicalSize(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3
+    &ra3
     );
 
   
@@ -1214,7 +1215,7 @@ napi_value _glfwGetMonitorUserPointer(napi_env env, napi_callback_info info) {
     );
 
   
-  status = napi_create_bigint_int64(env, res, &num);
+  status = napi_create_bigint_int64(env, *(int64_t*)res, &num);
   assert(status == napi_ok);
   return num;
 }
@@ -1279,7 +1280,7 @@ napi_value _glfwGetVideoModes(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2
+    &ra2
     );
 
   
@@ -1885,9 +1886,9 @@ napi_value _glfwGetWindowPos(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3
+    &ra3
     );
 
   
@@ -1989,9 +1990,9 @@ napi_value _glfwGetWindowSize(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3
+    &ra3
     );
 
   
@@ -2209,9 +2210,9 @@ napi_value _glfwGetFramebufferSize(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3
+    &ra3
     );
 
   
@@ -2274,13 +2275,13 @@ napi_value _glfwGetWindowFrameSize(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2,
+    &ra2,
     
-    ra3,
+    &ra3,
     
-    ra4,
+    &ra4,
     
-    ra5
+    &ra5
     );
 
   
@@ -2985,7 +2986,7 @@ napi_value _glfwGetWindowUserPointer(napi_env env, napi_callback_info info) {
     );
 
   
-  status = napi_create_bigint_int64(env, res, &num);
+  status = napi_create_bigint_int64(env, *(int64_t*)res, &num);
   assert(status == napi_ok);
   return num;
 }
@@ -4357,7 +4358,7 @@ napi_value _glfwGetJoystickAxes(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2
+    &ra2
     );
 
   
@@ -4390,7 +4391,7 @@ napi_value _glfwGetJoystickButtons(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2
+    &ra2
     );
 
   
@@ -4423,7 +4424,7 @@ napi_value _glfwGetJoystickHats(napi_env env, napi_callback_info info) {
     
     ra1,
     
-    ra2
+    &ra2
     );
 
   
@@ -4546,7 +4547,7 @@ napi_value _glfwGetJoystickUserPointer(napi_env env, napi_callback_info info) {
     );
 
   
-  status = napi_create_bigint_int64(env, res, &num);
+  status = napi_create_bigint_int64(env, *(int64_t*)res, &num);
   assert(status == napi_ok);
   return num;
 }
